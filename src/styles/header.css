@@ -1,0 +1,6 @@
+.header {
+  --width-header-current: 100%;
+  @screen md {
+    --width-header-current: 90%;
+  }
+}

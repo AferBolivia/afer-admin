@@ -1,0 +1,11 @@
+.button-custom {
+  @apply font-dmSans text-white bg-gradient-to-br from-afer-500 to-afer-600 hover:bg-gradient-to-br hover:from-afer-600 hover:to-afer-700 active:bg-gradient-to-br active:from-afer-700 active:to-afer-800 transition-all duration-300 active:scale-95;
+}
+
+.button-custom-outline {
+  @apply font-dmSans !bg-transparent border-[2px] border-afer-600 text-afer-600 hover:border-afer-700 hover:text-afer-700 active:border-afer-800 active:text-afer-800 transition-all duration-300 active:scale-95;
+}
+
+.button-custom-flat {
+  @apply font-dmSans bg-afer-500 hover:!bg-afer-600 active:!bg-afer-700 disabled:!bg-afer-950 disabled:!text-afer-700 transition-all duration-300 active:scale-95;
+}

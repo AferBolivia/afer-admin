@@ -1,0 +1,3 @@
+.bg-noise {
+  @apply bg-white bg-[linear-gradient(rgba(246,246,246,0.6)_0,#F0F0F0_100%),var(--background-noise)];
+}

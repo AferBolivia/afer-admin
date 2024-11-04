@@ -1,0 +1,24 @@
+.input {
+  @apply bg-white/20 text-black border border-[#9F9F9F] h-14 text-xl px-4 outline-orange-400
+}
+
+.input-search {
+  @apply w-full h-12 rounded-[10px] border-[1px] border-[#9C9C9C] text-lg pl-4 pr-14 outline-orange-400
+}
+
+.active {
+  @apply bg-orange-600 text-afer-600 dark:text-white
+}
+.active svg {
+  @apply fill-afer-600 dark:fill-white
+}
+
+.select-custom {
+  @apply flex h-11 w-full rounded-lg px-3 py-2 text-body-4 font-normal text-metal-900 placeholder:font-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-metal-200 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-white dark:text-white dark:placeholder:text-metal-300 dark:bg-metal-900 placeholder:text-black/50 border-r-8 border-transparent;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(100%) sepia(1%) saturate(3207%) hue-rotate(130deg) brightness(95%)
+    contrast(80%);
+}

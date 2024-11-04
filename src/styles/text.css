@@ -1,0 +1,3 @@
+.text-custom {
+  @apply text-black dark:text-white/90;
+}
