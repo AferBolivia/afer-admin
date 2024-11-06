@@ -1,7 +1,7 @@
 import React, { createContext, useState, ReactNode, useEffect } from "react"
 
 import { getAuthLocal, verifyAuthLocal } from "@/common/helpers/user-verify-local"
-import { AuthResponse } from "@/common/interfaces/user-auth.interface"
+import { AuthResponse } from "@/common/interfaces/auth.interface"
 import Loader from "@/components/Loader"
 
 export interface AuthContextType {

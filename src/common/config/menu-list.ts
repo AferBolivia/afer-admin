@@ -1,6 +1,6 @@
 import { ElementType } from "react"
 
-import { AppsFilled, HomeFilled, PeopleTeamFilled, PersonLockFilled, SettingsFilled, SparkleFilled } from "@fluentui/react-icons"
+import { AppsFilled, CubeFilled, HomeFilled, PeopleTeamFilled, PersonLockFilled, SettingsFilled, SparkleFilled } from "@fluentui/react-icons"
 
 import { ROLES_ENABLED } from "./access"
 
@@ -28,6 +28,12 @@ export const MenuList: MenuItem[] = [
     icon: SparkleFilled,
     label: "Marcas",
     path: "/marcas",
+    access: [ROLES_ENABLED.ADMIN],
+  },
+  {
+    icon: CubeFilled,
+    label: "Productos",
+    path: "/productos",
     access: [ROLES_ENABLED.ADMIN],
   },
   {

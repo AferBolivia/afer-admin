@@ -1,12 +1,11 @@
-import { CategoryParams } from "../interfaces/category.interface"
+import { BrandParams } from "../interfaces/brand.interface"
+import BrandService from "../services/brand.service"
 
-import CategoryService from "@/common/services/category.service"
 
+const brandService = new BrandService()
 
-const categoryService = new CategoryService()
-
-export const getCategories = async (data: CategoryParams) => {
-  const response = await categoryService.getCategories(data)
+export const getBrands = async (data: BrandParams) => {
+  const response = await brandService.getBrands(data)
   return response.data
 }
 
@@ -25,6 +24,6 @@ export const getCategories = async (data: CategoryParams) => {
 //   return response.data
 // }
 
-export const cancelCategoryPetition = async () => {
-  await categoryService.cancelPetition()
+export const cancelBrandPetition = async () => {
+  await brandService.cancelPetition()
 }

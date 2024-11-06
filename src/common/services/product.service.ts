@@ -1,15 +1,14 @@
 import HttpRequest from "./http.service"
+import { ProductParams, ProductResult } from "../interfaces/product.interface"
 
-import { CategoryParams, CategoryResult } from "@/common/interfaces/category.interface"
+const PRODUCTS_ENDPOINT = "products"
 
-const CATEGORIES_ENDPOINT = "categories"
-
-class CategoryService extends HttpRequest {
-  public async getCategories(params: CategoryParams) {
+class ProductService extends HttpRequest {
+  public async getProducts(params: ProductParams) {
     this.configRequest({
-      endpoint: CATEGORIES_ENDPOINT,
+      endpoint: PRODUCTS_ENDPOINT,
     })
-    return this.getWithParams<CategoryParams, CategoryResult>(params)
+    return this.getWithParams<ProductParams, ProductResult>(params)
   }
 
   // public async getCategoryById(id: number) {
@@ -40,4 +39,4 @@ class CategoryService extends HttpRequest {
   // }
 }
 
-export default CategoryService
+export default ProductService

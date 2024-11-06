@@ -1,27 +1,26 @@
 import HttpRequest from "./http.service"
+import { ClientParams, ClientResult } from "../interfaces/clients.interface"
 
-import { CategoryParams, CategoryResult } from "@/common/interfaces/category.interface"
+const CLIENTS_ENDPOINT = "clients"
 
-const CATEGORIES_ENDPOINT = "categories"
-
-class CategoryService extends HttpRequest {
-  public async getCategories(params: CategoryParams) {
+class ClientService extends HttpRequest {
+  public async getClients(params: ClientParams) {
     this.configRequest({
-      endpoint: CATEGORIES_ENDPOINT,
+      endpoint: CLIENTS_ENDPOINT,
     })
-    return this.getWithParams<CategoryParams, CategoryResult>(params)
+    return this.getWithParams<ClientParams, ClientResult>(params)
   }
 
   // public async getCategoryById(id: number) {
   //   this.configRequest({
-  //     endpoint: `${CATEGORIES_ENDPOINT}/${id}`,
+  //     endpoint: `${USERS_ENDPOINT}/${id}`,
   //   })
   //   return this.get<CategoryResponse>()
   // }
 
   // public async createCategory(data: CategoryPayload) {
   //   this.configRequest({
-  //     endpoint: CATEGORIES_ENDPOINT,
+  //     endpoint: USERS_ENDPOINT,
   //     headers: {
   //       "Content-Type": "multipart/form-data",
   //     },
@@ -31,7 +30,7 @@ class CategoryService extends HttpRequest {
 
   // public async updateCategory(id: number, data: CategoryPayload) {
   //   this.configRequest({
-  //     endpoint: `${CATEGORIES_ENDPOINT}/${id}`,
+  //     endpoint: `${USERS_ENDPOINT}/${id}`,
   //     headers: {
   //       "Content-Type": "multipart/form-data",
   //     },
@@ -40,4 +39,4 @@ class CategoryService extends HttpRequest {
   // }
 }
 
-export default CategoryService
+export default ClientService

@@ -1,7 +1,7 @@
-import { UserBase } from "./user.interface"
+import { UserResponse } from "./users.interface"
 
 export interface AuthResponse {
-  user: UserBase
+  user: UserResponse
   token: string
 }
 

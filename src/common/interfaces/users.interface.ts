@@ -7,23 +7,25 @@ export interface UserResponse {
   email: string
   status: number
   role?: ROLES_ENABLED
+  created_at?: Date
+  updated_at?: Date
 }
 
 export interface UserPayload {
-  name: string,
-  email: string,
-  password: string,
+  name: string
+  email: string
+  password: string
   status: boolean
 }
 
 export interface UserParams {
-  page?: number,
-  limit?: number,
-  search?: string,
+  page?: number
+  limit?: number
+  search?: string
   role?: ROLES_ENABLED
 }
 
 export interface UserResult {
-  users: UserResponse[],
+  users: UserResponse[]
   pagination: Pagination
 }

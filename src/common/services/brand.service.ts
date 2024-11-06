@@ -1,15 +1,14 @@
 import HttpRequest from "./http.service"
+import { BrandParams, BrandResult } from "../interfaces/brand.interface"
 
-import { CategoryParams, CategoryResult } from "@/common/interfaces/category.interface"
+const BRANDS_ENDPOINT = "brands"
 
-const CATEGORIES_ENDPOINT = "categories"
-
-class CategoryService extends HttpRequest {
-  public async getCategories(params: CategoryParams) {
+class BrandService extends HttpRequest {
+  public async getBrands(params: BrandParams) {
     this.configRequest({
-      endpoint: CATEGORIES_ENDPOINT,
+      endpoint: BRANDS_ENDPOINT,
     })
-    return this.getWithParams<CategoryParams, CategoryResult>(params)
+    return this.getWithParams<BrandParams, BrandResult>(params)
   }
 
   // public async getCategoryById(id: number) {
@@ -40,4 +39,4 @@ class CategoryService extends HttpRequest {
   // }
 }
 
-export default CategoryService
+export default BrandService

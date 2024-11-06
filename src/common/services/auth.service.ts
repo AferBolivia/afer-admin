@@ -1,6 +1,6 @@
 import HttpRequest from "./http.service"
 
-import { AuthPayload, AuthResponse } from "@/common/interfaces/user-auth.interface"
+import { AuthPayload, AuthResponse } from "@/common/interfaces/auth.interface"
 
 const AUTH_LOGIN_ENDPOINT = "auth/login"
 

@@ -1,4 +1,4 @@
-import { AuthResponse } from "@/common/interfaces/user-auth.interface"
+import { AuthResponse } from "@/common/interfaces/auth.interface"
 
 export function verifyAuthLocal() {
   return localStorage.getItem("auth") !== null

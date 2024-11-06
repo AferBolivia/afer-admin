@@ -1,6 +1,6 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react"
 
-import { AddCircleFilled, CheckmarkCircleRegular, PersonLockFilled, ProhibitedFilled } from "@fluentui/react-icons"
+import { AddCircleFilled, FoodCakeFilled, PeopleTeamFilled } from "@fluentui/react-icons"
 import {
   PencilSimpleLine,
   TrashSimple
@@ -16,15 +16,18 @@ import {
   TableHeader,
   TableRow,
 } from "keep-react"
+import moment from "moment"
 import { NavLink } from "react-router-dom"
-import { Tooltip } from "react-tooltip"
 
-import { cancelUserPetition, getUsers } from "@/common/api/user.api"
-import { UserResponse } from "@/common/interfaces/users.interface"
+import { getClients, cancelClientPetition } from "@/common/api/client.api"
+import { ClientResponse } from "@/common/interfaces/clients.interface"
 import { DotAnimation } from "@/components/DotAnimation"
 import Header from "@/components/Header"
 import PaginationCustom from "@/components/PaginationCustom"
 import TableSkeleton from "@/components/TableSkeleton"
+
+import "moment/dist/locale/es"
+moment.locale("es")
 
 interface Pagination {
   index: number
@@ -34,7 +37,7 @@ interface Pagination {
 
 const UserList = () => {
   const inputSearch = useRef<HTMLInputElement>(null)
-  const [list, setList] = useState<UserResponse[]>([])
+  const [list, setList] = useState<ClientResponse[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [messageError, setMessageError] = useState<string>("")
   const [pagination, setPagination] = useState<Pagination>({
@@ -50,16 +53,16 @@ const UserList = () => {
     setLoading(true)
     cleanPagination()
     try {
-      const response = await getUsers({
+      const response = await getClients({
         page: pageIndex ?? 1,
         search: currentSearch
       })
-      const { users, pagination } = response
-      if (!users) {
-        setMessageError("no hay usuarios")
+      const { clients, pagination } = response
+      if (!clients) {
+        setMessageError("no hay clientes")
         return
       }
-      setList(users)
+      setList(clients)
       setPagination({
         count: pagination?.navigation?.last,
         index: pagination?.page?.index,
@@ -101,6 +104,17 @@ const UserList = () => {
     }
   }
 
+  const formattedData = (date: string) => {
+    return moment(date, 'YYYY/MM/DD').format('D [de] MMMM')
+  }
+
+  const isBirthday = (date: string): boolean => {
+    const currentDay = moment(date, 'YYYY/MM/DD');
+    const today = moment();
+    
+    return currentDay.date() === today.date() && currentDay.month() === today.month();
+  }
+
   useEffect(() => {
     if(recentSearch === "") {
       getList()
@@ -119,7 +133,7 @@ const UserList = () => {
   useEffect(() => {
     getList()
     return () => {
-      cancelUserPetition()
+      cancelClientPetition()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -129,13 +143,13 @@ const UserList = () => {
       <Header className="bg-white dark:bg-basic-gradient">
         <div className="flex flex-col gap-4 md:flex-row md:gap-8">
           <div className="flex gap-4 font-bold">
-            <PersonLockFilled
+            <PeopleTeamFilled
               style={{ width: 48, height: 48 }}
               className="text-afer-950 dark:text-afer-400"
             />
             <div className="flex flex-col">
               <h1 className="text-afer-950 dark:text-afer-400 font-black text-4xl leading-none">
-                {recentSearch === "" ? "Usuarios" : recentSearch}
+                {recentSearch === "" ? "Clientes" : recentSearch}
               </h1>
               {
                 loading ? (
@@ -157,7 +171,7 @@ const UserList = () => {
             <NavLink to="./nuevo" className="w-full md:w-auto">
               <Button size="md" className="button-custom flex gap-1.5 w-full">
                 <AddCircleFilled className="size-6" />
-                Crear Usuario
+                Agregar Cliente
               </Button>
             </NavLink>
           </div>
@@ -181,7 +195,7 @@ const UserList = () => {
                 setCurrentSearch(e.target.value)
               }}
               onKeyUp={onSearch}
-              placeholder="Buscar un usuario"
+              placeholder="Buscar un cliente"
               className="w-full pr-16 !outline-afer-500 dark:!outline-none placeholder:text-afer-gray-800"
             />
           </fieldset>
@@ -198,36 +212,29 @@ const UserList = () => {
             <Table>
               <TableHeader className="sticky">
                 <TableRow>
-                  <TableHead className="w-2">Estado</TableHead>
                   <TableHead>ID</TableHead>
-                  <TableHead>Nombres</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Rol</TableHead>
+                  <TableHead>XY</TableHead>
+                  <TableHead>Nombre</TableHead>
+                  <TableHead>Celular</TableHead>
+                  <TableHead>Correo</TableHead>
+                  <TableHead>Cumple</TableHead>
+                  <TableHead>Visitas</TableHead>
                   <TableHead>Acciones</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {list.map((user: UserResponse) => (
-                  <TableRow key={`user-${user.id}`}>
-                    <TableCell className="text-center">
-                      <Tooltip anchorSelect={`.user-status-${user.id}`} place="top">
-                        {user.status ? 'Habilitado' : 'Deshabilitado' }
-                      </Tooltip>
-                      {user.status ? (
-                        <CheckmarkCircleRegular className={`user-status-${user.id} w-6 h-6 text-gray-500 hover:text-afer-success`} />
-                        // <CheckCircle className={`user-status-${user.id} w-6 h-6 text-gray-500 hover:text-afer-success`} weight="bold" />
-                        ) : (
-                          <ProhibitedFilled className={`user-status-${user.id} w-6 h-6 text-afer-error/40`}/>
-                        // <Prohibit className={`user-status-${user.id} w-6 h-6 text-afer-error/40 rotate-90`} weight="bold"/>
-                      )}
-                    </TableCell>
-                    <TableCell className="!normal-case">{user.id}</TableCell>
-                    <TableCell className="!normal-case">{user.name}</TableCell>
-                    <TableCell className="!normal-case">{user.email}</TableCell>
-                    <TableCell className="!normal-case">{user.role}</TableCell>
+                {list.map((client: ClientResponse) => (
+                  <TableRow key={`client-${client.id}`}>
+                    <TableCell className="!normal-case">{client.id}</TableCell>
+                    <TableCell className="!normal-case">{client.gender}</TableCell>
+                    <TableCell className="!normal-case">{client.fullname}</TableCell>
+                    <TableCell className="!normal-case">{client.cellphone}</TableCell>
+                    <TableCell className="!normal-case">{client.email}</TableCell>
+                    <TableCell className="!normal-case">{isBirthday(client.birthday) && (<FoodCakeFilled className="w-6 h-6"/>)} {formattedData(client.birthday)}</TableCell>
+                    <TableCell className="!normal-case">{client.visit_count}</TableCell>
                     <TableCell className="!normal-case">
                       <div className="flex gap-2">
-                        <NavLink to={`./${user.id}`}>
+                        <NavLink to={`./${client.id}`}>
                           <Button shape="icon" variant="link">
                             <PencilSimpleLine
                               size={20}
